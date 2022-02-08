@@ -1,0 +1,8 @@
+note over browser:
+user creates a new note and then
+browser sends the note to server
+end note
+
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/notes
+server-->browser: status code :201
+
