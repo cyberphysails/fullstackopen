@@ -20,6 +20,8 @@ function App() {
   const [ neutral, setNeutral ] = useState(0);
   const [ bad, setBad ] = useState(0);
 
+  const all = bad + neutral + good;
+
   return (
     <div>
       <h1>give feedback</h1>
@@ -30,6 +32,9 @@ function App() {
       <Display text="good" count={good} />
       <Display text="neutral" count={neutral} />
       <Display text="bad" count={bad} />
+      <Display text="all" count={all} />
+      <Display text="average" count={(good-bad)/all} />
+      <Display text="positive" count={(100*good/all)+"%"} />
     </div>
   );
 }
