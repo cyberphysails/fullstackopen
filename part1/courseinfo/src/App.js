@@ -1,27 +1,36 @@
 import React from 'react'
 
+const Header = (props) => {
+  return <h1>{props.head}</h1>
+}
+
+const Content = (props) => {
+  const data = props.data.map((el, index)=> {
+    return <p key={el.title} >{el.title + " " + el.count}</p>
+  })
+  return data
+}
+
+
+const Total = (props) => {
+  const total = props.data.reduce((init, el)=> init = el.count + init, 0);
+  return <p>Number of exercises {total}</p>
+}
+
+
 const App = () => {
   const course = 'Half Stack application development'
-  const part1 = 'Fundamentals of React'
-  const exercises1 = 10
-  const part2 = 'Using props to pass data'
-  const exercises2 = 7
-  const part3 = 'State of a component'
-  const exercises3 = 14
+  const data = [
+    { title: "Fundamentals of React", count: 10 },
+    { title: "Using props to pass data", count: 7 },
+    { title: "State of a component", count: 14 },
+  ]
 
   return (
     <div>
-      <h1>{course}</h1>
-      <p>
-        {part1} {exercises1}
-      </p>
-      <p>
-        {part2} {exercises2}
-      </p>
-      <p>
-        {part3} {exercises3}
-      </p>
-      <p>Number of exercises {exercises1 + exercises2 + exercises3}</p>
+      <Header head={course} />
+      <Content data={data} />
+      <Total data={data} />
     </div>
   )
 }
