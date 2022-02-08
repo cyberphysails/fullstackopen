@@ -4,13 +4,22 @@ const Header = (props) => {
   return <h1>{props.head}</h1>
 }
 
-const Content = (props) => {
-  const data = props.data.map((el, index)=> {
-    return <p key={el.title} >{el.title + " " + el.count}</p>
-  })
-  return data
+const Part = (props) => {
+  const data = props.data;
+  return <p>{data.title + " " + data.count}</p>
 }
 
+const Content = (props) => {
+  const data = props.data.map((el, index)=> {
+    return <Part key={el.title} data={el}/>
+  })
+
+  return (
+    <div>
+      {data}
+    </div>
+  )
+}
 
 const Total = (props) => {
   const total = props.data.reduce((init, el)=> init = el.count + init, 0);
