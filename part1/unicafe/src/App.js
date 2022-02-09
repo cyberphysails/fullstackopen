@@ -9,9 +9,12 @@ function Button(props) {
   )
 }
 
-function Display(props) {
+function TrDisplay(props) {
   return (
-    <p>{props.text + " " + props.count}</p>
+    <tr>
+      <td>{props.text}</td>
+      <td>{props.count}</td>
+    </tr>
   )
 }
 
@@ -30,12 +33,16 @@ function Statistics({good, neutral, bad}) {
   return (
     <div>
       <h1>Statistics</h1>
-      <Display text="good" count={good} />
-      <Display text="neutral" count={neutral} />
-      <Display text="bad" count={bad} />
-      <Display text="all" count={all} />
-      <Display text="average" count={(good-bad)/all} />
-      <Display text="positive" count={(100*good/all)+"%"} />
+      <table>
+        <tbody>
+          <TrDisplay text="good" count={good} />
+          <TrDisplay text="neutral" count={neutral} />
+          <TrDisplay text="bad" count={bad} />
+          <TrDisplay text="all" count={all} />
+          <TrDisplay text="average" count={(good-bad)/all} />
+          <TrDisplay text="positive" count={(100*good/all)+"%"} />
+      </tbody>
+      </table>
     </div>
   )
 }
