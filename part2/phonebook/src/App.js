@@ -1,18 +1,24 @@
-import { useMemo, useState } from "react";
+import axios from "axios";
+import { useEffect, useMemo, useState } from "react";
 import FilterCpn from "./components/FilterCpn";
 import NewPhone from "./components/NewPhone";
 import Phonebook from "./components/Phonebook";
 
 function App() {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456', id: 1 },
-    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
-    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
-    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
-  ]) 
+  const [persons, setPersons] = useState([]); 
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [filterKeyword, setfilterKeyword] = useState("");
+
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:30001/persons")
+      .then(response => {
+        console.log(response);
+        setPersons(response.data)
+      })
+  },[])
 
   const filteredPersons = useMemo(
     () => persons.filter((el) => 
