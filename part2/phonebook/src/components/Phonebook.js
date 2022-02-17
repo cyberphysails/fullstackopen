@@ -17,7 +17,7 @@ function Phonebook(props) {
     return <div>{filterPersons}</div>
     
     */
-    const { persons } = props;
+    const { persons, onDelete } = props;
 
     return (
         <div>
@@ -29,9 +29,10 @@ function Phonebook(props) {
                 </tr></thead>
                 <tbody>
                     {persons.map((el) => (
-                        <tr key={el.name}>
+                        <tr key={el.id}>
                             <td>{el.name}</td>
                             <td>{el.number}</td>
+                            <td><button onClick={onDelete(el.id)}>delete</button></td>
                         </tr>
                     ))}
                 </tbody>
