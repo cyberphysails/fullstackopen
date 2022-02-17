@@ -3,12 +3,14 @@ import { useEffect, useMemo, useState } from "react";
 import FilterCpn from "./components/FilterCpn";
 import NewPhone from "./components/NewPhone";
 import Phonebook from "./components/Phonebook";
+import Notification from "./components/Notification";
 
 function App() {
   const [persons, setPersons] = useState([]); 
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [filterKeyword, setfilterKeyword] = useState("");
+  const [message, setMessage] = useState({msg:null, error:false});
 
 
   useEffect(() => {
@@ -63,16 +65,16 @@ function App() {
       }
     }
 
-
     phoneBookService
       .create(newPerson)
       .then(response => {
         setPersons(persons.concat(response));
+        setMessage({msg:`Added ${newName}`,error:false})
+        setTimeout(()=> setMessage({msg:null,error:false}), 3000);
       })
       .catch(error => {
         console.error("create data to server error", error)
       })
-    
   }
 
   const handleDelete = (id) => {
@@ -88,6 +90,8 @@ function App() {
         })
         .catch(error => {
           console.error("delete data from server error", error)
+          setMessage({msg:`Infomation of ${person.name} has Already been removed from server`,error:true})
+          setTimeout(()=> setMessage({msg:null,error:false}), 3000);
         })
     }
   }
@@ -95,6 +99,7 @@ function App() {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={message} />
       <NewPhone 
         newName={newName} 
         newNumber={newNumber} 
